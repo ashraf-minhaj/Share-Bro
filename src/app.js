@@ -15,12 +15,18 @@ async function get_presigned_url(file_name) {
 
     console.log(url)
 
-    fetch(url, 
+    await fetch(url, 
         {
             method:'GET'
         }).then(response=>{
             // console.log(response.json())
-            return response.json()
+            if (response.status === 200){
+                // var response = JSON.parse(response)
+                console.log("Get req success")
+                console.log(typeof(response))
+                console.log(response['signedUrl'])
+                return response.json()
+            }
         }).then(data=> 
             // this is the data we get after putting our data,
             console.log(data)
@@ -52,16 +58,22 @@ async function upload(){
     console.log(file)
 
     console.log("Getting presigned URL");
-    sgn_url = await get_presigned_url(file_name)
+    sgn_url = get_presigned_url(
+        file_name
+        ).then(response => {
+            console.log("Oh this worked")
+            console.log("Uploading")
+            if (sgn_url != undefined){
+                console.log("uploading file to s3");
+                console.log(typeof(sgn_url.signedUrl))
+                // upload_file(sgn_url, file);
+            }
+        });
     console.log(sgn_url)
 
-    if (sgn_url != undefined){
-        console.log("uploading file to s3");
-        await upload_file(sgn_url, file)
-    }
-
     // show object cloudfront url on text input
-    document.getElementById("url").value = "cdn.com/"+file_name;
+    // document.getElementById("url").value = "cdn.com/"+file_name;
+    document.getElementById("url").value = sgn_url;
     console.log("url set")
     // alert("File uploaded, copy the url and share to your bros!!!")
 };

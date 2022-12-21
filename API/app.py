@@ -55,7 +55,7 @@ def generate_presigned_url(file_name):
     response = jsonify({
         "success"           : success,
         "httpStatusCode"    : httpStatusCode,
-        "sirgnedUrl"        : pre_signed_url,
+        "signedUrl"        : pre_signed_url,
         "aws_region"        : REGION,
         "key"               : file_name,
         "error"             : str(error)
