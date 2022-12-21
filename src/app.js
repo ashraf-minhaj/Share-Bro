@@ -9,7 +9,7 @@
 
 var API = "http://127.0.0.1:5000"
 
-function get_presigned_url(file_name) {
+async function get_presigned_url(file_name) {
     // var url = API + "/getpresignedurl/" + file_name
     var url = API + "/getpresignedurl/" + "file.png"
 
@@ -36,7 +36,7 @@ function upload_file(url, file) {
         });
 };
 
-function upload(){
+async function upload(){
     /* gets presigned url and uploads file to s3 */
     var file_selector   = document.getElementById("file-selector")
     var file_name       = file_selector.value
@@ -52,11 +52,13 @@ function upload(){
     console.log(file)
 
     console.log("Getting presigned URL");
-    sgn_url = get_presigned_url(file_name)
+    sgn_url = await get_presigned_url(file_name)
     console.log(sgn_url)
 
-    console.log("uploading file to s3");
-    upload_file(sgn_url, file)
+    if (sgn_url != undefined){
+        console.log("uploading file to s3");
+        await upload_file(sgn_url, file)
+    }
 
     // show object cloudfront url on text input
     document.getElementById("url").value = "cdn.com/"+file_name;
