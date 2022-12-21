@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <H1 style="font: fira code; font-size: 40px;" id="title">
+        <span style="color:black">Share</span>
+        <span style="color:orange">Bro</span> 
+    </H1>
+    <h4>share is my first name</h4>
+    <body style="background-color: whitesmoke;"> 
+    <div style="display: flex; justify-content: center; align-items: center; height: 45vh;"> 
+        <div style="text-align: center;"> 
+            <p style="font: fira code; font-size: 40px; color: black;" id="text">Upload a file, copy & share link with bros.</p>
+                <input type="file" id="file-selector" >
+                <button name="upload" onclick="upload()">Upload</button>
+            <p style="font: fira code; font-size: 40px; color: black;" id="text">Paste a link from your bro, get the file!</p>
+                <button name="copy" onclick="copy()">Copy</button>
+                <input type="text" id="url">
+                <button name="download" onclick="download()">Download</button>
+        </div>
+    <script src="app.js"> </script>
+    </body>
+</html>
