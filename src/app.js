@@ -11,30 +11,17 @@ var API = "http://127.0.0.1:5000"
 
 async function get_presigned_url(file_name) {
     // var url = API + "/getpresignedurl/" + file_name
-    var url = API + "/getpresignedurl/" + "file.png"
-
+    var url = API + "/getpresignedurl/" + "file2.png"
     console.log(url)
 
-    await fetch(url, 
-        {
-            method:'GET'
-        }).then(response=>{
-            // console.log(response.json())
-            if (response.status === 200){
-                // var response = JSON.parse(response)
-                console.log("Get req success")
-                console.log(typeof(response))
-                console.log(response['signedUrl'])
-                return response.json()
-            }
-        }).then(data=> 
-            // this is the data we get after putting our data,
-            console.log(data)
-            );
+    let res = await fetch(url);
+    let d = res.json()
+    console.log(d)
+    return d
 };
 
-function upload_file(url, file) {
-    fetch(url, 
+async function upload_file(url, file) {
+    await fetch(url, 
         {
             method: 'PUT',
             mode: 'cors',
@@ -47,7 +34,8 @@ async function upload(){
     var file_selector   = document.getElementById("file-selector")
     var file_name       = file_selector.value
     var file            = file_selector.files[0]
-    var sgn_url         = 'nothing'
+    let res;
+    let sgn_url;
 
     if (file_name == "") {
         alert("Select a file, bro don't share empty files")
@@ -58,18 +46,13 @@ async function upload(){
     console.log(file)
 
     console.log("Getting presigned URL");
-    sgn_url = get_presigned_url(
-        file_name
-        ).then(response => {
-            console.log("Oh this worked")
-            console.log("Uploading")
-            if (sgn_url != undefined){
-                console.log("uploading file to s3");
-                console.log(typeof(sgn_url.signedUrl))
-                // upload_file(sgn_url, file);
-            }
-        });
+    res = await get_presigned_url(file_name);
+    sgn_url = await res['signedUrl']
+
+    console.log("This is the data I get")
     console.log(sgn_url)
+
+    upload_file(sgn_url, file);
 
     // show object cloudfront url on text input
     // document.getElementById("url").value = "cdn.com/"+file_name;
