@@ -6,6 +6,27 @@
 ### Demo (so far)
 ![cover](docs/init_demo.png)
 
+### S3 Bucker CORS Policy
+```
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "PUT",
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": [
+            "ETag"
+        ],
+        "MaxAgeSeconds": 3000
+    }
+]
+```
+
 ### To Do
 * basic html page - `done`
 * backend script for file upload - 

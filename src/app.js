@@ -10,23 +10,27 @@
 var API = "http://127.0.0.1:5000"
 
 async function get_presigned_url(file_name) {
-    // var url = API + "/getpresignedurl/" + file_name
-    var url = API + "/getpresignedurl/" + "file2.png"
+    /* Generate presigned url for uuid.extension */
+    let ext = file_name.split(".").pop();
+    // console.log("Extension ", ext)
+    var url = API + "/getpresignedurl/" + ext
     console.log(url)
 
     let res = await fetch(url);
-    let d = res.json()
-    console.log(d)
-    return d
+    let data = res.json()
+    console.log(data)
+    return data
 };
 
 async function upload_file(url, file) {
-    await fetch(url, 
+    let response = await fetch(url, 
         {
             method: 'PUT',
-            mode: 'cors',
+            // mode: 'cors',
             body: file
         });
+    console.log(response.status)
+    return response.status
 };
 
 async function upload(){
@@ -52,13 +56,27 @@ async function upload(){
     console.log("This is the data I get")
     console.log(sgn_url)
 
-    upload_file(sgn_url, file);
+    if (sgn_url != undefined){
+        console.log("Uploading the file now")
+        let upload_res = await upload_file(sgn_url, file);
+        console.log("this is upload res", upload_res)
 
-    // show object cloudfront url on text input
-    // document.getElementById("url").value = "cdn.com/"+file_name;
-    document.getElementById("url").value = sgn_url;
-    console.log("url set")
-    // alert("File uploaded, copy the url and share to your bros!!!")
+        if (upload_res == 200) {
+            console.log("Upload success")
+            setTimeout("alert('File uploaded, copy the url and share to your bros!!!');", 1);
+        }
+        else{
+            console.log("File upload error")
+            alert("Error uploading file")
+            return 0;
+        }
+
+        // show object cloudfront url on text input
+        // document.getElementById("url").value = "cdn.com/"+file_name;
+        document.getElementById("url").value = sgn_url;
+        // console.log("url set")
+        // copy();
+    }
 };
 
 function copy(){
