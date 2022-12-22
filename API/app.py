@@ -60,11 +60,10 @@ def generate_presigned_url(file_ext):
         "httpStatusCode"    : httpStatusCode,
         "signedUrl"         : pre_signed_url,
         "aws_region"        : REGION,
-        "key"               : file_ext,
+        "key"               : key,
         "error"             : str(error)
     })
 
-    # response.headers.add('Access-Control-Allow-Origin', '*')
     print(response)
     return response
 

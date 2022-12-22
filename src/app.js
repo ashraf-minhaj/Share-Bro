@@ -72,8 +72,8 @@ async function upload(){
         }
 
         // show object cloudfront url on text input
-        // document.getElementById("url").value = "cdn.com/"+file_name;
-        document.getElementById("url").value = sgn_url;
+        document.getElementById("url").value = "cdn.com/"+res["key"];
+        // document.getElementById("url").value = sgn_url;
         // console.log("url set")
         // copy();
     }
