@@ -7,12 +7,39 @@
  * mail  : ashraf_minhaj@yhaoo.com
  */
 
+var API = "http://127.0.0.1:5000"
 
-function upload(){
+async function get_presigned_url(file_name) {
+    /* Generate presigned url for uuid.extension */
+    let ext = file_name.split(".").pop();
+    // console.log("Extension ", ext)
+    var url = API + "/getpresignedurl/" + ext
+    console.log(url)
+
+    let res = await fetch(url);
+    let data = res.json()
+    console.log(data)
+    return data
+};
+
+async function upload_file(url, file) {
+    let response = await fetch(url, 
+        {
+            method: 'PUT',
+            // mode: 'cors',
+            body: file
+        });
+    console.log(response.status)
+    return response.status
+};
+
+async function upload(){
     /* gets presigned url and uploads file to s3 */
-    var file_selector = document.getElementById("file-selector")
-    var file_name = file_selector.value
-    var file = file_selector.files[0]
+    var file_selector   = document.getElementById("file-selector")
+    var file_name       = file_selector.value
+    var file            = file_selector.files[0]
+    let res;
+    let sgn_url;
 
     if (file_name == "") {
         alert("Select a file, bro don't share empty files")
@@ -21,13 +48,35 @@ function upload(){
 
     console.log("Uploading file", file_name);
     console.log(file)
-    console.log("Getting presigned URL");
-    console.log("uploading file to s3");
 
-    // show object cloudfront url on text input
-    document.getElementById("url").value = "cdn.com/yourfile.ext";
-    console.log("url set")
-    alert("File uploaded, copy the url and share to your bros!!!")
+    console.log("Getting presigned URL");
+    res = await get_presigned_url(file_name);
+    sgn_url = await res['signedUrl']
+
+    console.log("This is the data I get")
+    console.log(sgn_url)
+
+    if (sgn_url != undefined){
+        console.log("Uploading the file now")
+        let upload_res = await upload_file(sgn_url, file);
+        console.log("this is upload res", upload_res)
+
+        if (upload_res == 200) {
+            console.log("Upload success")
+            setTimeout("alert('File uploaded, copy the url and share to your bros!!!');", 1);
+        }
+        else{
+            console.log("File upload error")
+            alert("Error uploading file")
+            return 0;
+        }
+
+        // show object cloudfront url on text input
+        document.getElementById("url").value = "cdn.com/"+res["key"];
+        // document.getElementById("url").value = sgn_url;
+        // console.log("url set")
+        // copy();
+    }
 };
 
 function copy(){
