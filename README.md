@@ -9,7 +9,7 @@
 > **How this works**
 > After selecting a file and clicking `upload`, a Flask API gets called and assigns a `UuID` to the file then gets and returns presigned url for `uuid.extension` which is used and finally uploads file to the desired bucket.
 
-### S3 Bucker CORS Policy
+### S3 Bucket CORS Policy
 ```
 [
     {
@@ -30,10 +30,17 @@
 ]
 ```
 
+# some useful commands
+> version check `pip show lib_name`
+> install dpndncs from file `pip3 install --no-cache-dir -r requirements.txt`
+> run flask on dedicated prot & host`python3 -m flask run --host=0.0.0.0 --port=5000`
+> docker image build `docker build --tag sharebro-api-server .`
+
 ### To Do
 * basic html page - `done`
-* backend script for file upload - `done` API
-* backend scrit for file download -
+* backend script for file upload - `done`
+* dockerize site and api - `cont.`
+* backend script for file download -
 * sctipt to copy url - `done`
 * terraform, bash (automate) to host on **AWS s3** & **Cloudfront** -
 * add route53 hosted zone - 
