@@ -77,6 +77,9 @@ async function upload(){
         // console.log("url set")
         // copy();
     }
+    else {
+        alert("Server side error!\nError: " + String(res['error']))
+    }
 };
 
 function copy(){
