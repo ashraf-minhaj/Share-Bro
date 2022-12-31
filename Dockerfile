@@ -1,13 +1,14 @@
-FROM python:3.7-alpine3.16
+FROM python:latest
 
 WORKDIR /API
 
 COPY API/requirements.txt requirements.txt
+COPY API/app.py .
 
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install -r requirements.txt
+# RUN pip install --no-cache-dir -r requirements.txt -t .
 
-COPY . .
+# RUN sudo apt-get install awscli -y
 
-# CMD [ "python3", "-m", "flask", "run", "--host=0.0.0.0" ]
-# CMD [ "echo hellow-bro'" ]
-RUN python3 -m flask run --host=0.0.0.0
+CMD [ "flask", "run", "--host=0.0.0.0" ]
+# CMD [ "python", "-m", "flask", "run", "--host=0.0.0.0" ]

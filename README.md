@@ -34,12 +34,16 @@
 > version check `pip show lib_name`
 > install dpndncs from file `pip3 install --no-cache-dir -r requirements.txt`
 > run flask on dedicated prot & host`python3 -m flask run --host=0.0.0.0 --port=5000`
-> docker image build `docker build --tag sharebro-api-server .`
+> docker image build `sudo docker build --tag sharebro-api1 .`
+> run `sudo docker run -d -p 5000:5000 sharebro-api1:latest`
+
 
 ### To Do
 * basic html page - `done`
 * backend script for file upload - `done`
-* dockerize site and api - `cont.`
+* dockerize api - `cont.`
+* dockerize frontend - 
+* run both containers in one instance -
 * backend script for file download -
 * sctipt to copy url - `done`
 * terraform, bash (automate) to host on **AWS s3** & **Cloudfront** -

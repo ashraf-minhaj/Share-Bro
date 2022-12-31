@@ -76,3 +76,6 @@ def generate_presigned_url(file_ext):
 
 def generate_key_name(file_ext):
     return uuid.uuid4().hex + '.' + file_ext
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
