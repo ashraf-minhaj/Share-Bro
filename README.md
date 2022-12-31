@@ -64,7 +64,7 @@ server {
   listen [::]:80 default_server;
   root /var/www/frontend;
   index index.html;
-  server_name 65.0.205.109 ;
+  server_name  ;
   location / {
     try_files $uri $uri/ =404;
   }
@@ -72,8 +72,18 @@ server {
 ```
 run -
 ```
-cd ../sites-enabled/
+sudo ln -s /etc/nginx/sites-available/frontend /etc/nginx/sites-enabled/frontend
+```
+restart nginx -
+```
+sudo systemctl restart nginx
+```
 
+in case -
+```
+sudo fuser -k 80/tcp
+sudo rm /etc/nginx/sites-enabled/default
+sudo systemctl restart nginx
 ```
 
 
