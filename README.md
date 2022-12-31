@@ -31,11 +31,11 @@
 ```
 
 # some useful commands
-> version check `pip show lib_name`
-> install dpndncs from file `pip3 install --no-cache-dir -r requirements.txt`
-> run flask on dedicated prot & host`python3 -m flask run --host=0.0.0.0 --port=5000`
-> docker image build `sudo docker build --tag sharebro-api1 .`
-> run `sudo docker run -d -p 5000:5000 sharebro-api1:latest`
+* version check `pip show lib_name`
+* install dpndncs from file `pip3 install --no-cache-dir -r requirements.txt` / `pip3 install -r requirements.txt`
+* run flask on dedicated prot & host`flask run --host=0.0.0.0 --port=5000`
+* docker image build `sudo docker build --tag sharebro-api1 .`
+* run `sudo docker run -d -p 5000:5000 sharebro-api1:latest`
 
 
 ### To Do
