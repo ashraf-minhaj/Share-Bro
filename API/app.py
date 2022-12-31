@@ -26,6 +26,12 @@ CORS(app)
 # init aws client(s)
 s3 = boto3.client('s3', region_name=REGION, config=Config(signature_version='s3v4'))
 
+
+@app.route('/')
+def home():
+    return "It works, Kudos Brother!"
+
+
 @app.route('/getpresignedurl/<file_ext>', methods=["GET"])
 def generate_presigned_url(file_ext):
     """ assign uuid with user sent file extention.
@@ -70,3 +76,6 @@ def generate_presigned_url(file_ext):
 
 def generate_key_name(file_ext):
     return uuid.uuid4().hex + '.' + file_ext
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
