@@ -37,11 +37,51 @@
 * docker image build `sudo docker build --tag sharebro-api1 .`
 * run `sudo docker run -d -p 5000:5000 sharebro-api1:latest`
 
+### nginx server setup 
+
+run -
+```
+sudo apt-get update
+sudo apt-get install nginx -y
+sudo mkdir /var/www/frontend
+cd /var/www/frontend
+echo "Coming Soon" | sudo tee index.html
+cd /etc/nginx/
+```
+> **sites-available** contains individual configuration files for all of your possible static websites.
+> **sites-enabled** contains links to the configuration files that NGINX will actually read and run.
+> **create a configuration file in sites-available**, and then **create a symbolic link** (a pointer) to that file in sites-enabled to actually tell NGINX to run it.
+
+run -
+```
+cd sites-available/
+sudo nano frontend
+```
+Paste -
+```
+server {
+  listen 80 default_server;
+  listen [::]:80 default_server;
+  root /var/www/frontend;
+  index index.html;
+  server_name 65.0.205.109 ;
+  location / {
+    try_files $uri $uri/ =404;
+  }
+}
+```
+run -
+```
+cd ../sites-enabled/
+
+```
+
+
 
 ### To Do
 * basic html page - `done`
 * backend script for file upload - `done`
-* dockerize api - `cont.`
+* dockerize api - `done`
 * dockerize frontend - 
 * run both containers in one instance -
 * backend script for file download -
