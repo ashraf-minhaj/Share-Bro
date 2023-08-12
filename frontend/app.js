@@ -7,7 +7,7 @@
  * mail  : ashraf_minhaj@yhaoo.com
  */
 
-var API = "http://127.0.0.1:5000"
+var API = "http://localhost:8080"
 
 async function get_presigned_url(file_name) {
     /* Generate presigned url for uuid.extension */
@@ -98,4 +98,27 @@ function copy(){
 function download(){
     /* given a valid cloudfront URL it get's the files */
     console.log("Downloading file..")
+}
+
+function checkHealth() {
+    // Clear previous health status
+    document.getElementById('healthStatus').textContent = '';
+
+    // Make a GET request to the backend health endpoint
+    fetch('http://localhost:80/health')
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else {
+                throw new Error('Backend not Connected');
+            }
+        })
+        .then(data => {
+            // Display the health status
+            document.getElementById('healthStatus').textContent = 'Connected with Backend!';
+        })
+        .catch(error => {
+            // Display an error message if the backend is not healthy
+            document.getElementById('healthStatus').textContent = 'Backend Connectivity Lost.';
+        });
 }
