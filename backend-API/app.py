@@ -31,6 +31,9 @@ s3 = boto3.client('s3', region_name=REGION, config=Config(signature_version='s3v
 def home():
     return "It works, Kudos Brother!"
 
+@app.route('/health')
+def health_check():
+    return "OK"
 
 @app.route('/getpresignedurl/<file_ext>', methods=["GET"])
 def generate_presigned_url(file_ext):
