@@ -7,13 +7,14 @@
  * mail  : ashraf_minhaj@yhaoo.com
  */
 
-var API = "http://127.0.0.1:5000"
+// var API = "http://127.0.0.1:8080"
+const API = "http://localhost:8080/" 
 
 async function get_presigned_url(file_name) {
     /* Generate presigned url for uuid.extension */
     let ext = file_name.split(".").pop();
     // console.log("Extension ", ext)
-    var url = API + "/getpresignedurl/" + ext
+    var url = API + "getpresignedurl/" + ext
     console.log(url)
 
     let res = await fetch(url);
@@ -98,4 +99,36 @@ function copy(){
 function download(){
     /* given a valid cloudfront URL it get's the files */
     console.log("Downloading file..")
+}
+
+function checkHealth() {
+    console.log(API);
+    var url = API + "/health"; // Add a forward slash before "health"
+    console.log("health check url", url);
+
+    // Clear previous health status
+    document.getElementById('healthStatus').textContent = '';
+
+    // Make a GET request to the backend health endpoint
+    fetch(url)
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else {
+                throw new Error('Backend not Connected');
+            }
+        })
+        .then(data => {
+            // Check if the "health" field is present in the JSON response
+            if (data && data.health) {
+                // Set the text of the 'healthStatus' element to the health status
+                document.getElementById('healthStatus').textContent = 'Health Status: ' + data.health;
+            } else {
+                document.getElementById('healthStatus').textContent = 'No Health Status Found';
+            }
+        })
+        .catch(error => {
+            // Display an error message if the backend is not healthy
+            document.getElementById('healthStatus').textContent = 'Backend Connectivity Lost.';
+        });
 }
