@@ -2,26 +2,27 @@
 Backend API for Share Bro
 
 purpose:
-    * Generate Presigned URL: http://127.0.0.1:5000/getpresignedurl/file_extension
+    * Generate Presigned URL: http://127.0.0.1:8080/getpresignedurl/file_extension
 """
 
 
 import uuid
 import boto3
 from botocore.config import Config
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 from flask_cors import CORS
 
 
 # env specific vars
 # enter your bucket name here
-BUCKET = 'bucket'             # aws s3 ls | awk 'NR==2{print $3}'
-REGION = boto3.Session().region_name    # aws configure list | grep region | awk '{print $2}'
+BUCKET = 'test-min-version-mngr'        
+REGION = 'ap-southeast-1'
 
 
 # init flask
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # init aws client(s)
 s3 = boto3.client('s3', region_name=REGION, config=Config(signature_version='s3v4'))
@@ -33,7 +34,10 @@ def home():
 
 @app.route('/health')
 def health_check():
-    return "OK"
+    res = jsonify({
+        'health': 'ok'
+    })
+    return res
 
 @app.route('/getpresignedurl/<file_ext>', methods=["GET"])
 def generate_presigned_url(file_ext):
@@ -81,4 +85,4 @@ def generate_key_name(file_ext):
     return uuid.uuid4().hex + '.' + file_ext
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=8080)
