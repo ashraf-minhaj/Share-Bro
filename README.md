@@ -1,12 +1,13 @@
 # ShareBro
 ![sharebro](docs/share-bro.png)
- File Sharing applicaiton using AWS, Terraform. Or just a demonstration of my SRE/DevOps skills.
+
+File Sharing applicaiton using AWS, Terraform. Or just a demonstration of my SRE/DevOps skills.
 
 -----------
 
 <div align="center">
-![](https://img.shields.io/badge/Python-3.10-blue?style=plastic&logo=python)&nbsp;
-![](https://img.shields.io/badge/Docker-%3E1.16.5-blue?style=plastic&logo=docker)&nbsp;
+
+![](https://img.shields.io/badge/Python-3.10-blue?style=plastic&logo=python)&nbsp; ![](https://img.shields.io/badge/Docker-%3E1.16.5-blue?style=plastic&logo=docker)&nbsp;
 
 </div>
 
@@ -32,8 +33,6 @@ what's new: With Backend Health Check
 * add route53 hosted zone - 
 * CI/CD Pipeline -
 
-
-> Disclaimer: I'm a python guy with cloud crush, don't judge my UI. This project is to practice/demonstrate devops skills.
-
 (C) Ashraf-Minhaj
-**Find me on **linkedin [/ashraf-minaj](https://www.linkedin.com/in/ashraf-minhaj)
+
+**Find me on** linkedin [/ashraf-minaj](https://www.linkedin.com/in/ashraf-minhaj)
