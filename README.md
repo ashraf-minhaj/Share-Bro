@@ -7,7 +7,7 @@ File Sharing applicaiton using AWS, Terraform. Or just a demonstration of my SRE
 
 <div align="center">
 
-![](https://img.shields.io/badge/Python-3.10-blue?style=plastic&logo=python)&nbsp; ![](https://img.shields.io/badge/Docker-%3E1.16.5-blue?style=plastic&logo=docker)&nbsp;
+![](https://img.shields.io/badge/Python-3.10-blue?style=plastic&logo=python)&nbsp; ![](https://img.shields.io/badge/Docker--blue?style=plastic&logo=docker)&nbsp; ![](https://img.shields.io/badge/Docker%20Compose-3.8-cyan?style=plastic&logo=docker)&nbsp;
 
 </div>
 
